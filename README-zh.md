@@ -18,7 +18,12 @@ gorm_dao_generator是一个自动化生成GORM数据访问对象（Data Access O
 
 * 支持目录和文件名风格的自定义。
 
-### 3.安装
+### 3.环境要求
+
+* Go 1.20+
+* MySQL 8.0+
+
+### 4.安装
 
 ```bash
 go env -w GOSUMDB=off
@@ -26,7 +31,7 @@ go install github.com/dawnsgo/gorm_dao_generator@latest
 go env -w GOSUMDB=on
 ```
 
-### 4.用法
+### 5.用法
 
 ```bash
 用法:
@@ -54,9 +59,9 @@ go env -w GOSUMDB=on
         指定子包的生成样式；选项：kebab | underscore | lower | camel | pascal；默认为 kebab
 ```
 
-### 5.示例
+### 6.示例
 
-###### 5-1.创建模型
+###### 6-1.创建模型
 
 文件位置：[example/model/mail.go](example/model/mail.go)
 
@@ -79,13 +84,13 @@ type Mail struct {
 }
 ```
 
-###### 5-2.生成dao文件
+###### 6-2.生成dao文件
 
 ```bash
 go generate ./...
 ```
 
-###### 5-3.生成的dao文件示例
+###### 6-3.生成的dao文件示例
 
 文件位置：[example/dao/internal/mail.go](example/dao/internal/mail.go)
 
@@ -457,7 +462,7 @@ func NewMail(db *gorm.DB) *Mail {
 }
 ```
 
-###### 5-4.使用生成的dao文件
+###### 6-4.使用生成的dao文件
 
 文件位置：[example/main.go](example/main.go)
 
@@ -475,7 +480,8 @@ import (
 )
 
 func main() {
-	dsn := "root:123456@tcp(127.0.0.1:3306)/game?charset=utf8mb4&parseTime=True&loc=Local"
+	// MySQL 8.0+ DSN，allowNativePasswords 用于认证兼容
+	dsn := "root:123456@tcp(127.0.0.1:3306)/game?charset=utf8mb4&parseTime=True&loc=Local&allowNativePasswords=true"
 
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		DSN: dsn,
@@ -512,7 +518,7 @@ func main() {
 }
 ```
 
-###### 5-5.运行结果:
+###### 6-5.运行结果:
 
 
 

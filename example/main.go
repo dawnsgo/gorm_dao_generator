@@ -12,7 +12,8 @@ import (
 )
 
 func main() {
-	dsn := "root:123456@tcp(127.0.0.1:3306)/game?charset=utf8mb4&parseTime=True&loc=Local"
+	// MySQL 8.0+ DSN with allowNativePasswords for authentication compatibility
+	dsn := "root:123456@tcp(127.0.0.1:3306)/game?charset=utf8mb4&parseTime=True&loc=Local&allowNativePasswords=true"
 
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		DSN: dsn,

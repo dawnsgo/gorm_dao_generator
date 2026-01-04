@@ -18,7 +18,12 @@ gorm_dao_generator is a tool for automatically generating Mysql Data Access Obje
 
 * Supports customization of directory and file name styles.
 
-### 3.Download and install
+### 3.Requirements
+
+* Go 1.20+
+* MySQL 8.0+
+
+### 4.Download and install
 
 ```bash
 go env -w GOSUMDB=off
@@ -26,7 +31,7 @@ go install github.com/dawnsgo/gorm_dao_generator@latest
 go env -w GOSUMDB=on
 ```
 
-### 4.Usage
+### 5.Usage
 
 ```bash
 Usage of gorm_dao_generator:
@@ -54,9 +59,9 @@ Flags:
         specify the generation style for sub-pkg; options: kebab | underscore | lower | camel | pascal; default is kebab (default "kebab")
 ```
 
-### 5.Example
+### 6.Example
 
-###### 5-1.Create model
+###### 6-1.Create model
 
 File Location: [example/model/mail.go](example/model/mail.go)
 
@@ -79,13 +84,13 @@ type Mail struct {
 }
 ```
 
-###### 5-2.Generate dao files
+###### 6-2.Generate dao files
 
 ```bash
 go generate ./...
 ```
 
-###### 5-3.Generated dao file example
+###### 6-3.Generated dao file example
 
 File Location: [example/dao/internal/mail.go](example/dao/internal/mail.go)
 
@@ -457,7 +462,7 @@ func NewMail(db *gorm.DB) *Mail {
 }
 ```
 
-###### 5-4.Use the generated dao file
+###### 6-4.Use the generated dao file
 
 File Location: [example/main.go](example/main.go)
 
@@ -475,7 +480,8 @@ import (
 )
 
 func main() {
-	dsn := "root:123456@tcp(127.0.0.1:3306)/game?charset=utf8mb4&parseTime=True&loc=Local"
+	// MySQL 8.0+ DSN with allowNativePasswords for authentication compatibility
+	dsn := "root:123456@tcp(127.0.0.1:3306)/game?charset=utf8mb4&parseTime=True&loc=Local&allowNativePasswords=true"
 
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		DSN: dsn,
@@ -512,7 +518,7 @@ func main() {
 }
 ```
 
-###### 5-5.Run result:
+###### 6-5.Run result:
 
 ```bash
 $ go run main.go
