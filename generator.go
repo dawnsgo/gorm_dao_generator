@@ -13,12 +13,13 @@ import (
 	"golang.org/x/tools/go/packages"
 )
 
+// symbolQuote PostgreSQL 使用双引号作为标识符
 const (
-	symbolBacktick = "`"
+	symbolQuote = `"`
 )
 
 const (
-	symbolBacktickKey = "SymbolBacktick"
+	symbolBacktickKey = "SymbolBacktick" // 模板中使用的占位符，PostgreSQL 固定为双引号
 )
 
 const (
@@ -107,7 +108,7 @@ func (g *generator) makeModelInternalDao(m *model) {
 	replaces[varModelColumnsDefineKey] = m.modelColumnsDefined()
 	replaces[varModelColumnsInstanceKey] = m.modelColumnsInstance()
 	replaces[varPackagesKey] = m.packages()
-	replaces[symbolBacktickKey] = symbolBacktick
+	replaces[symbolBacktickKey] = symbolQuote
 
 	if tableName := g.modelNames[m.modelName]; tableName != "" {
 		replaces[varTableNameKey] = tableName

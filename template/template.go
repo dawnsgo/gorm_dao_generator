@@ -180,7 +180,13 @@ func (dao *${VarDaoClassName}) Sum(ctx context.Context, columnFunc ${VarDaoPrefi
 
 	for i := range columns {
 		val, _ := rst[fmt.Sprintf("sum_%d", i)]
-		sum, _ := strconv.ParseFloat(val.(string), 64)
+		var sum float64
+		switch v := val.(type) {
+		case float64:
+			sum = v
+		case string:
+			sum, _ = strconv.ParseFloat(v, 64)
+		}
 		sums = append(sums, sum)
 	}
 
@@ -213,7 +219,13 @@ func (dao *${VarDaoClassName}) Avg(ctx context.Context, columnFunc ${VarDaoPrefi
 
 	for i := range columns {
 		val, _ := rst[fmt.Sprintf("avg_%d", i)]
-		avg, _ := strconv.ParseFloat(val.(string), 64)
+		var avg float64
+		switch v := val.(type) {
+		case float64:
+			avg = v
+		case string:
+			avg, _ = strconv.ParseFloat(v, 64)
+		}
 		avgs = append(avgs, avg)
 	}
 
