@@ -21,7 +21,7 @@ gorm_dao_generator是一个自动化生成GORM数据访问对象（Data Access O
 ### 3.环境要求
 
 * Go 1.20+
-* PostgreSQL 12+
+* PostgreSQL 17+
 
 ### 4.安装
 
